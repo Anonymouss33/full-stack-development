@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visitor Login - My Portfolio</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #af4c84;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        .highlight {
+            margin: 0;
+            font-size: 2em;
+        }
+        section {
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        input[type="text"], input[type="password"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+        button {
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-size: 1em;
+            margin: 5px;
+        }
+        .login-btn {
+            background-color: #af4c84;
+        }
+        .login-btn:hover {
+            background-color: #9a3e72;
+        }
+        .register-btn {
+            background-color: #6e1c63;
+        }
+        .register-btn:hover {
+            background-color:#6e1c63;
+        }
+        nav {
+            text-align: center;
+            margin: 20px 0;
+        }
+        nav a {
+            color: #af4c84;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body onload="checkLoginStatus()">
+    <header>
+        <h1 class="highlight">Visitor Login</h1>
+    </header>
+    <section>
+        <form id="visitorLoginForm" onsubmit="return validateLogin()">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <button type="submit" class="login-btn">Login</button>
+            <button type="button" onclick="register()" class="register-btn">Register</button>
+        </form>
+    </section>
+
+    <nav>
+        <a href="contact.html">Contact Us</a>
+    </nav>
+
+    <script>
+        function setCookie(name, value, days) {
+            const d = new Date();
+            d.setTime(d.getTime() + (days*24*60*60*1000));
+            const expires = "expires=" + d.toUTCString();
+            document.cookie = name + "=" + value + ";" + expires + ";path=/";
+        }
+
+        function getCookie(name) {
+            const cookieName = name + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const cookieArr = decodedCookie.split(';');
+            for(let i = 0; i < cookieArr.length; i++) {
+                let cookie = cookieArr[i].trim();
+                if (cookie.indexOf(cookieName) == 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        function validateLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username === 'Prahalya' && password === 'prahalya123') {
+                setCookie("username", username, 1); // Set cookie to expire in 1 day
+                window.location.href = 'home2.html'; 
+            } else {
+                alert('Invalid username or password.');
+            }
+
+            return false; 
+        }
+
+        function checkLoginStatus() {
+            const username = getCookie("username");
+            if (username) {
+                window.location.href = 'home2.html';
+            }
+        }
+
+        function register() {
+            window.location.href = 'home2.html';
+        }
+    </script>
+</body>
+</html>
